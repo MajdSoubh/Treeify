@@ -7,7 +7,7 @@ The Treeify package allows you to easily convert flat collections of Laravel mod
 You can install the package via composer:
 
 ```shell
-composer require ms/treeify
+composer require maso/treeify
 ```
 
 ## Usage
