@@ -2,27 +2,35 @@
 
 namespace MS\Treeify;
 
-
+use Illuminate\Database\Eloquent\Builder;
 
 trait HasTree
 {
 
 
-    private function buildTree($onlyParents = true)
+    public function scopeTreeify(Builder $query, $onlyParents = true)
     {
-
 
         $parentFieldName = property_exists($this, 'parentFieldName') ? $this->parentFieldName : 'parent_id';
 
-        $modelId = $this->getAttribute('id');
+        $modelId = $this->exists ? $this->getKey() : false;
+
+
+        // return $query;
 
         $result = null;
 
         if ($modelId)
         {
-            $data = $this->where($parentFieldName, $modelId)->get();
+            $data = collect([$this]);
+            $parentIds = [$modelId];
+            while (count($parentIds))
+            {
 
-            $data->add($this);
+                $decendents = self::whereIn($parentFieldName, $parentIds)->get();
+                $data = $data->merge($decendents);
+                $parentIds = $decendents->pluck('id');
+            }
 
             $result = Treeify::treeify($data, $onlyParents, $parentFieldName);
 
@@ -39,17 +47,5 @@ trait HasTree
         }
 
         return $result;
-    }
-
-    public  function __call($name, $args)
-    {
-
-
-        if ($name === 'asTree')
-        {
-
-            return call_user_func_array([$this, 'buildTree'], $args);
-        }
-        return  parent::__call($name, $args);
     }
 }

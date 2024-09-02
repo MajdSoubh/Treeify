@@ -2,6 +2,7 @@
 
 namespace MS\Treeify;
 
+use Illuminate\Support\Collection;
 
 class Treeify
 {
@@ -10,22 +11,10 @@ class Treeify
 
     private $onlyParents = true;
 
-    public function __construct($parentFieldName = null, $onlyParents = null)
-    {
-        !$parentFieldName ?? $this->parentFieldName = $parentFieldName;
-        !$onlyParents ?? $this->$onlyParents = $onlyParents;
-    }
-
-    public function __invoke($data)
-    {
-
-        $result = $this->proccess($data);
-
-        return $result;
-    }
 
     public static function treeify($data, $onlyParents = null, $parentFieldName = null)
     {
+
         $instance = new self($parentFieldName);
 
 
@@ -34,44 +23,56 @@ class Treeify
 
         $result = $instance->proccess($data);
 
+
         return $result;
     }
 
     private function proccess($data)
     {
-
         $result = collect();
 
+        // Container to bound between parents id and it's children
+        $pIDToChildren = collect();
         foreach ($data as $item)
         {
-            $children = $this->getChildren($data, $item->id);
+            $parentId = $item->getAttribute($this->parentFieldName);
 
-            if (count($children))
-            {
-                $item->setAttribute('children', $children);
-
-                $result->add($item);
-
-                continue;
-            }
-            if (!$this->onlyParents)
+            if ($parentId)
             {
 
-                $result->add($item);
+                if ($pIDToChildren->has($parentId))
+                {
+                    return true;
+
+                    $pIDToChildren->get($parentId)->push($item);
+                }
+                else
+                {
+                    $pIDToChildren->put($parentId, new Collection([$item]));
+                }
             }
         }
 
-        return $result;
-    }
-    private function getChildren($data, $id)
-    {
-        $result = collect();
-
         foreach ($data as $item)
         {
-            if ($item->getAttribute($this->parentFieldName) === $id)
+
+            // Check if this item is a parent and assign it's children to it.
+            if ($pIDToChildren->has($item->id))
             {
-                $result->add($item);
+
+                $item->setAttribute('children', $pIDToChildren->get($item->id));
+            }
+
+            // If sub-parents have to be included also add it to the result
+            if (!$this->onlyParents)
+            {
+                $result->push($item);
+            }
+            // else if it's the top parent then add it to the result.
+            else if (!$item->getAttribute($this->parentFieldName))
+            {
+
+                $result->push($item);
             }
         }
 
