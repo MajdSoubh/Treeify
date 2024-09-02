@@ -3,7 +3,7 @@
 namespace Maso\Treeify\Providers;
 
 use Illuminate\Support\Collection;
-use Maso\Treeify\Treeify;
+use Maso\Treeify\Classes\Treeify;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {

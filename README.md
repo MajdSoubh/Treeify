@@ -15,7 +15,7 @@ composer require maso/treeify
 To use the Treeify package, simply apply the HasTree trait to your Eloquent models and utilize the scopeTreeify method to generate a hierarchical tree structure:
 
 ```php
-use Maso\Treeify\HasTree;
+use Maso\Treeify\Traits\HasTree;
 
 class Category extends Model
 {
@@ -175,4 +175,4 @@ if we do not fix it within a short period of time please open a new issue descri
 
 ## Credits
 
-- [Majd Soubh](https://www.linkedin.com/in/majd-soubh/)
+-   [Majd Soubh](https://www.linkedin.com/in/majd-soubh/)
