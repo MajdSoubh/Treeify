@@ -1,9 +1,9 @@
 <?php
 
-namespace MS\Treeify\Providers;
+namespace Maso\Treeify\Providers;
 
 use Illuminate\Support\Collection;
-use MS\Treeify\Treeify;
+use Maso\Treeify\Treeify;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -12,6 +12,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function boot()
     {
+
+        Collection::macro('treeify', function ($onlyParents = null, $parentFieldName = null)
+        {
+            $result = Treeify::treeify($this, $onlyParents, $parentFieldName);
+            return $result;
+        });
     }
 
     /**
@@ -19,10 +25,5 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        Collection::macro('treeify', function ($onlyParents = null, $parentFieldName = null)
-        {
-            $result = Treeify::treeify($this, $onlyParents, $parentFieldName);
-            return $result;
-        });
     }
 }

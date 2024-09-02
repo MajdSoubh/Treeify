@@ -1,6 +1,6 @@
 <?php
 
-namespace MS\Treeify;
+namespace Maso\Treeify;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;

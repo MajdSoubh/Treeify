@@ -1,6 +1,6 @@
 <?php
 
-namespace MS\Treeify;
+namespace Maso\Treeify;
 
 use Illuminate\Support\Collection;
 

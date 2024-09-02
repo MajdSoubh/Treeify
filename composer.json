@@ -1,48 +1,37 @@
 {
-    "name": "ms/treeify",
-    "description": "This package allows you to retrieve and display a model's self-relation as a nested tree.",
-    "keywords": [
-        "treeify"
-    ],
-    "homepage": "https://github.com/majdsoubh/self-tree",
-    "license": "MIT",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Majd Soubh",
-            "email": "majdsoubh53@gmail.com"
-        }
-    ],
-    "require": {
-        "php": "^7.4|^8.0",
-        "illuminate/support": "^8.0"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^6.0",
-        "phpunit/phpunit": "^9.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "MS\\Treeify\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "MS\\Treeify\\Tests\\": "tests"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "MS\\Treeify\\Providers\\ServiceProvider"
-            ]
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-    },
-    "config": {
-        "sort-packages": true
+  "name": "maso/treeify",
+  "description": "Laravel package allows you to convert flat collections of models into hierarchical tree structures, simplifying parent-child relationships management.",
+  "keywords": [
+    "treeify",
+    "build-tree"
+  ],
+  "homepage": "https://github.com/majdsoubh/treeify",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Majd Soubh",
+      "email": "majdsoubh53@gmail.com"
     }
+  ],
+  "require": {
+    "php": "^7.4|^8.0",
+    "illuminate/support": "^8.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.0",
+    "phpunit/phpunit": "^9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Maso\\Treeify\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Maso\\Treeify\\Providers\\ServiceProvider"
+      ]
+    }
+  }
 }
