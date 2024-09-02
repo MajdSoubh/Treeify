@@ -11,28 +11,26 @@ class Treeify
 
     private $onlyParents = true;
 
-
+    public function __construct($onlyParents = null, $parentFieldName = null)
+    {
+        !isset($parentFieldName) ?: $this->parentFieldName = $parentFieldName;
+        !isset($onlyParents) ?: $this->onlyParents = $onlyParents;
+    }
     public static function treeify($data, $onlyParents = null, $parentFieldName = null)
     {
-
-        $instance = new self($parentFieldName);
-
-
-        !isset($parentFieldName) ?: $instance->parentFieldName = $parentFieldName;
-        !isset($onlyParents) ?: $instance->onlyParents = $onlyParents;
+        $instance = new self($onlyParents, $parentFieldName);
 
         $result = $instance->proccess($data);
-
 
         return $result;
     }
 
     private function proccess($data)
     {
-        $result = collect();
+        $result = new Collection();
 
         // Container to bound between parents id and it's children
-        $pIDToChildren = collect();
+        $pIDToChildren = new Collection();
         foreach ($data as $item)
         {
             $parentId = $item->getAttribute($this->parentFieldName);
@@ -57,10 +55,10 @@ class Treeify
         {
 
             // Check if this item is a parent and assign it's children to it.
-            if ($pIDToChildren->has($item->id))
+            if ($pIDToChildren->has($item->getKey()))
             {
 
-                $item->setAttribute('children', $pIDToChildren->get($item->id));
+                $item->setAttribute('children', $pIDToChildren->get($item->getKey()));
             }
 
             // If sub-parents have to be included also add it to the result
