@@ -18,10 +18,6 @@
     "php": "^7.4|^8.0",
     "illuminate/support": "^8.0"
   },
-  "require-dev": {
-    "orchestra/testbench": "^6.0",
-    "phpunit/phpunit": "^9.0"
-  },
   "autoload": {
     "psr-4": {
       "Maso\\Treeify\\": "src/"
