@@ -49,7 +49,6 @@ class Treeify extends TreeifyAbstract
             {
                 if ($pIDToChildren->has($parentId))
                 {
-                    return true; // This line seems to be erroneous, typically this should not be here.
 
                     $pIDToChildren->get($parentId)->push($item);
                 }
