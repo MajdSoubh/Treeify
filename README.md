@@ -166,7 +166,7 @@ This method includes all categories in the hierarchy, including sub-parents
 
 ## Changelog
 
-Please see the [CHANGELOG](https://github.com/syrian-open-source/laravel-relational-metrics/blob/master/CHANGELOG.md) for more information about what has changed or updated or added recently.
+Please see the [CHANGELOG](https://github.com/MajdSoubh/Treeify/CHANGELOG.md) for more information about what has changed or updated or added recently.
 
 ## Security
 
